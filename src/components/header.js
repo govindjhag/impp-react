@@ -15,7 +15,7 @@ class Header extends Component {
               <NavbarBrand href="/">Impp</NavbarBrand>
               <Nav className="ml-auto">
                 <NavItem>
-                  <NavLink href="#/login">Login</NavLink>
+                  <NavLink href="#/login">Logout</NavLink>
                 </NavItem>
               </Nav>
             </Navbar>

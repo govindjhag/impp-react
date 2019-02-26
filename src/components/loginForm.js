@@ -2,6 +2,8 @@ import { Button, Form ,FormGroup,Label,Input,Alert,Spinner} from "reactstrap";
 import React, { Component } from 'react';
 import axios from 'axios';
 import { reactLocalStorage } from 'reactjs-localstorage';
+import { Redirect } from "react-router-dom";
+
 class LoginForm extends Component{
     constructor(props){
         super(props);
@@ -11,7 +13,8 @@ class LoginForm extends Component{
             hasError:false,
             message:'',
             color:'',
-            loading:false
+            loading:false,
+            isAuthenticated:false
         };
         this.handleChange = this.handleChange.bind(this);
         this.login = this.login.bind(this);
@@ -37,7 +40,8 @@ class LoginForm extends Component{
         }).then((response)=> {
            if(response.data.appcode === 50003 && response.data.token){
                reactLocalStorage.set("token", response.data.token);
-               this.setState({ hasError: false, message: response.data.message ,color:'success',loading:false})
+               this.setState({ hasError: false, message: response.data.message, color: 'success', loading: false, isAuthenticated:true});
+               
            }else{
                this.setState({ hasError: true, message: response.data.message,color:'danger',loading:false});
                reactLocalStorage.remove("token");
@@ -77,7 +81,7 @@ class LoginForm extends Component{
                     <Input type="password" name="password" type="password" onChange={this.handleChange} value={this.state.password} id="examplePassword" placeholder="password placeholder" />
                 </FormGroup>
                 {spinnerButton}
-                
+                {this.state.isAuthenticated && (<Redirect to="/" />)}
             </Form>
         );
     }

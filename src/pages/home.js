@@ -9,8 +9,8 @@ class Home extends Component {
         return (
             <Container>
                 <Row>
-                    <Col>fdsafdsaf  dfsafasd f</Col>
                     <Col></Col>
+                    <Col><h3>Welcome To Dashboard</h3></Col>
                     <Col></Col>
                 </Row>
             </Container>
