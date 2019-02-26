@@ -10,22 +10,17 @@ class Header extends Component {
     }
     render() {
         return (
-            <div>
-                <Navbar color="dark" dark expand="md">
-                    <NavbarBrand href="/">
-                        Impp
-                    </NavbarBrand>
-                    <Nav>
-                        <NavItem>
-                            <NavLink href="#/login">
-                                Login
-                            </NavLink>
-                        </NavItem>
-                    </Nav>
-                </Navbar>
-
-            </div>
-        )
+          <div>
+            <Navbar color="dark" dark expand="md">
+              <NavbarBrand href="/">Impp</NavbarBrand>
+              <Nav className="ml-auto">
+                <NavItem>
+                  <NavLink href="#/login">Login</NavLink>
+                </NavItem>
+              </Nav>
+            </Navbar>
+          </div>
+        );
     }
 }
 

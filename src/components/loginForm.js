@@ -1,4 +1,4 @@
-import { Button, Form ,FormGroup,Label,Input} from "reactstrap";
+import { Button, Form ,FormGroup,Label,Input,Alert,Spinner} from "reactstrap";
 import React, { Component } from 'react';
 import axios from 'axios';
 import { reactLocalStorage } from 'reactjs-localstorage';
@@ -9,7 +9,9 @@ class LoginForm extends Component{
             email:'',
             password:'',
             hasError:false,
-            message:''
+            message:'',
+            color:'',
+            loading:false
         };
         this.handleChange = this.handleChange.bind(this);
         this.login = this.login.bind(this);
@@ -17,7 +19,7 @@ class LoginForm extends Component{
     }
     login(e){
         e.preventDefault();
-        this.setState({ hasError: true, message: "" });
+        this.setState({ hasError: true, message: "" ,color:'',loading:true});
         const axiosInstance = axios.create({
           headers: { "Content-Type": "application/json" }
         });
@@ -35,9 +37,9 @@ class LoginForm extends Component{
         }).then((response)=> {
            if(response.data.appcode === 50003 && response.data.token){
                reactLocalStorage.set("token", response.data.token);
-               this.setState({ hasError: false, message: response.data.message })
+               this.setState({ hasError: false, message: response.data.message ,color:'success',loading:false})
            }else{
-               this.setState({ hasError: true, message: response.data.message});
+               this.setState({ hasError: true, message: response.data.message,color:'danger',loading:false});
                reactLocalStorage.remove("token");
            }
         });
@@ -50,9 +52,22 @@ class LoginForm extends Component{
     }
     render(){
         let message = (<p>{this.state.message}</p>);
+        let spinnerButton = <Button type="submit">Submit </Button>;
+        if(this.state.loading){ 
+            spinnerButton = (
+              <Spinner
+                style={{ width: "3rem", height: "3rem" }}
+                type="grow"
+                color="primary"
+              />
+            );
+        }
+        
         return (
             <Form onSubmit={this.login}>
-                {message}
+                <Alert color={this.state.color}>
+                    {message}
+                </Alert>
                 <FormGroup>
                     <Label for="exampleEmail">Email</Label>
                     <Input type="email" name="email" value={this.state.email} onChange={this.handleChange} id="exampleEmail" placeholder="with a placeholder" />
@@ -61,8 +76,8 @@ class LoginForm extends Component{
                     <Label for="examplePassword">Password</Label>
                     <Input type="password" name="password" type="password" onChange={this.handleChange} value={this.state.password} id="examplePassword" placeholder="password placeholder" />
                 </FormGroup>
+                {spinnerButton}
                 
-                <Button type="submit">Submit</Button>
             </Form>
         );
     }
