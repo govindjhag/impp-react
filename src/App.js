@@ -1,33 +1,23 @@
+import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Card,Row,Container,Col} from "react-bootstrap";
 
-import React, { Component } from 'react';
-import LoginForm from './components/LoginForm';
+import { HashRouter,Route,Switch }  from "react-router-dom";
+import Default from "./containers/default";
 /*import logo from './logo.svg';*/
 import './App.css';
+import Login from "./pages/login";
+
 
 
 class App extends Component {
   render() {
     return (
-      <div>
-        <header>
-          <Card>
-            <Card.Header>IMPP</Card.Header>
-            <Card.Body>
-              <Container>
-                <Row>
-                  <Col />
-                  <Col>
-                    <LoginForm />
-                  </Col>
-                  <Col />
-                </Row>
-              </Container>
-            </Card.Body>
-          </Card>
-        </header>
-      </div>
+      <HashRouter >
+        <Switch>
+          <Route exact path="/login" component={Login} />
+          <Route path="/" component={Default} />
+        </Switch>
+      </HashRouter>
     );
   }
 }

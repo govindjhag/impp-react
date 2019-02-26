@@ -1,4 +1,4 @@
-import { Button, Form } from "react-bootstrap";
+import { Button, Form ,FormGroup,Label,Input} from "reactstrap";
 import React, { Component } from 'react';
 import axios from 'axios';
 import { reactLocalStorage } from 'reactjs-localstorage';
@@ -52,20 +52,18 @@ class LoginForm extends Component{
         let message = (<p>{this.state.message}</p>);
         return (
             <Form onSubmit={this.login}>
-            {message}
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control name="email" value={this.state.email} onChange={this.handleChange} type="email" placeholder="Enter email" />              
-            </Form.Group>
-
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control name="password" type="password" onChange={this.handleChange} value={this.state.password} placeholder="Password" />
-            </Form.Group>
-            <Button variant="primary" type="submit">
-              Submit
-            </Button>
-          </Form>
+                {message}
+                <FormGroup>
+                    <Label for="exampleEmail">Email</Label>
+                    <Input type="email" name="email" value={this.state.email} onChange={this.handleChange} id="exampleEmail" placeholder="with a placeholder" />
+                </FormGroup>
+                <FormGroup>
+                    <Label for="examplePassword">Password</Label>
+                    <Input type="password" name="password" type="password" onChange={this.handleChange} value={this.state.password} id="examplePassword" placeholder="password placeholder" />
+                </FormGroup>
+                
+                <Button type="submit">Submit</Button>
+            </Form>
         );
     }
 }
